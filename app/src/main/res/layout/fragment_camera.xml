@@ -16,5 +16,20 @@
             android:text="拍照"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/camera_add_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加照片"/>
+        <Button
+            android:id="@+id/camera_del_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="删除照片"/>
+    </LinearLayout>
 
 </LinearLayout>
