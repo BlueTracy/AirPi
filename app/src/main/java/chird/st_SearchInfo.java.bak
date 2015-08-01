@@ -1,0 +1,9 @@
+package chird;
+
+
+public class st_SearchInfo {
+	public int 		[]	id		= new int[40];
+	public String 	[]	alias 	= new String[40];
+	public String 	[]	ipaddr 	= new String[40];
+}
+

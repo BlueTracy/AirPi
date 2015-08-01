@@ -40,28 +40,7 @@ public class CameraFragment extends Fragment {
         mAppContext = inflater.getContext().getApplicationContext();
         mGalleryManager = GalleryService.getGalleryManager(mAppContext);
 
-        Button btn = (Button)view.findViewById(R.id.camera_add_pic);
-        Button btn1 = (Button)view.findViewById(R.id.camera_del_pic);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    mGalleryManager.addPanoInfo("测试", "https://drscdn.500px.org/photo/3348095/m%3D1170_k%3D1/534eebb0d58885e5690b7a800ca22f84", 0);
-                }catch (DbException e) {
-                    LogUtils.e(e.getMessage(), e);
-                }
-            }
-        });
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    mGalleryManager.removePanoInfo(0);
-                }catch (DbException e) {
-                    LogUtils.e(e.getMessage(), e);
-                }
-            }
-        });
+
         return view;
     }
 
