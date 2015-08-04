@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pi.airpi.R;
+import com.pi.airpi1.R;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 

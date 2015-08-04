@@ -26,13 +26,25 @@
            android:layout_weight="1"
            android:orientation="horizontal">
            <FrameLayout
+               android:id="@+id/layout_preview1"
                android:layout_width="0dp"
                android:layout_height="match_parent"
-               android:layout_weight="1"></FrameLayout>
+               android:layout_weight="1">
+              <!-- <SurfaceView
+                   android:id="@+id/surface_preview1"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent" />-->
+           </FrameLayout>
            <FrameLayout
+               android:id="@+id/layout_preview2"
                android:layout_width="0dp"
                android:layout_height="match_parent"
-               android:layout_weight="1"></FrameLayout>
+               android:layout_weight="1">
+             <!--  <SurfaceView
+                   android:id="@+id/surface_preview2"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent" />-->
+           </FrameLayout>
 
        </LinearLayout>
         <LinearLayout
@@ -40,20 +52,37 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <FrameLayout
+                android:id="@+id/layout_preview3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></FrameLayout>
+                android:layout_weight="1">
+               <!-- <SurfaceView
+                    android:id="@+id/surface_preview3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />-->
+            </FrameLayout>
             <FrameLayout
+                android:id="@+id/layout_preview4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></FrameLayout>
+                android:layout_weight="1">
+              <!--  <SurfaceView
+                    android:id="@+id/surface_preview4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />-->
+            </FrameLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
            >
-            <Te
-
+            <Button
+                android:id="@+id/btn_take_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:text="拍照"/>
         </LinearLayout>
     </LinearLayout>
 

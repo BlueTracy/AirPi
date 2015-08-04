@@ -28,8 +28,11 @@ public class PanoCamera {
     public static final int HANDLER_AUDIO = 3;
     public static final int HANDLER_SERIAL = 4;
 
-    private chd_wmp_apis chdSdk = new chd_wmp_apis();
-    private st_SearchInfo deviceInfo = new st_SearchInfo();
+    public static final int CHD_FMT_YUYV 	= 0X01;
+    public static final int CHD_FMT_MJPEG 	= 0x02;
+    public static final int CHD_FMT_H264	= 0x03;
+    private chd_wmp_apis chdSdk;
+    private st_SearchInfo deviceInfo;
 
     private long mHandle = -1;
 
@@ -82,6 +85,9 @@ public class PanoCamera {
     };
 
     public PanoCamera(){
+        LogUtils.d("camera init");
+        chdSdk = new chd_wmp_apis();
+        deviceInfo = new st_SearchInfo();
       firstCameraQueue = new LinkedList<Bitmap>();
          secondCameraQueue = new LinkedList<Bitmap>();
         thirdCameraQueue = new LinkedList<Bitmap>();
@@ -92,6 +98,10 @@ public class PanoCamera {
         cameraQueues[3] = thirdCameraQueue;
         cameraQueues[4] = fourthCameraQueue;
 
+    }
+
+    public boolean videoStarted(){
+        return mVideoFlag;
     }
 
 
@@ -107,6 +117,7 @@ public class PanoCamera {
     }
 
 
+    //扫描设备
     public boolean scanDevice(){
         boolean  result = true;
         int retCode = chdSdk.CHD_WMP_ScanDevice_Init(3);
@@ -136,6 +147,7 @@ public class PanoCamera {
         return result;
     }
 
+    //停止扫描设备
     public boolean stopScanDevice(){
         boolean result = true;
         mDevScanTimer.cancel();
@@ -146,7 +158,7 @@ public class PanoCamera {
         }
         return result;
     }
-
+    //连接设备
     public boolean connectDevice(String ipAddress){
         boolean result = true;
         if (mConnectFlag == true) {
@@ -167,7 +179,37 @@ public class PanoCamera {
 
         return result;
     }
-
+    //设置分辨率
+    public boolean setResolution(final int width,final int height){
+        boolean result = true;
+        if(mConnectFlag){
+            int retCode = chdSdk.CHD_WMP_Video_SetResolu(mHandle,width,height);
+            if(retCode!=chd_Return.CHD_RET_SUCCESS){
+                LogUtils.e("设置分辨率出错："+retCode);
+                result = false;
+            }
+        }else{
+            LogUtils.e("设备未连接");
+            return false;
+        }
+        return result;
+    }
+    //设置视频格式
+    public boolean setFormat(int format){
+        boolean result = true;
+        if(mConnectFlag){
+            int retCode = chdSdk.CHD_WMP_Video_SetFormat(mHandle, format);
+            if(retCode!=chd_Return.CHD_RET_SUCCESS){
+                LogUtils.e("设置视频格式出错："+retCode);
+                result = false;
+            }
+        }else{
+            LogUtils.e("设备未连接");
+            return false;
+        }
+        return result;
+    }
+    //开启视频流
     public boolean startVideo(){
         boolean result = true;
         if(mVideoFlag){
@@ -181,6 +223,14 @@ public class PanoCamera {
             }
         }
         return result;
+    }
+    //停止视频流
+    public void stopVideo(){
+        if(mVideoFlag){
+            chdSdk.CHD_WMP_Video_End(mHandle);
+            mVideoFlag = false;
+        }
+
     }
 
     public Bitmap getCameraData(int index){
@@ -210,22 +260,15 @@ public class PanoCamera {
                 if(ret == chdSdk.CHD_POLL_TYPE_VIDEO){
                     synchronized (videoFrame){
                         chdSdk.CHD_WMP_Video_RequestVideoData(mHandle,videoFrame,videoBuffer);
-                        opts.inSampleSize = 2;
+                       opts.inSampleSize = 2;
                         mBitmap  = BitmapFactory.decodeByteArray(videoBuffer, 0, videoFrame.datalen,
                                 opts);
+                       //chdSdk.CHD_WMP_Decode_MjpegToBitmap(mHandle,videoFrame.width,videoFrame.height,videoFrame.datalen,mBitmap,videoBuffer);
                         if(videoFrame.bexist>0){
                             cameraQueues[videoFrame.bexist].offer(mBitmap);
                         }
 
-                       /* if(videoFrame.bexist==1){
-                            firstCameraQueue.offer(mBitmap);
-                        }else if(videoFrame.bexist==2){
-                            secondCameraQueue.offer(mBitmap);
-                        }else if(videoFrame.bexist==3){
-                            thirdCameraQueue.offer(mBitmap);
-                        }else if(videoFrame.bexist==4){
-                            fourthCameraQueue.offer(mBitmap);
-                        }*/
+
                     }
 
                 }

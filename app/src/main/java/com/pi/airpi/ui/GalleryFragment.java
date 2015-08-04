@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.lidroid.xutils.BitmapUtils;
-import com.pi.airpi.R;
+import com.pi.airpi1.R;
 import com.pi.airpi.adapter.PanoAdapter;
 import com.pi.airpi.gallery.GalleryManager;
 import com.pi.airpi.gallery.GalleryService;

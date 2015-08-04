@@ -10,4 +10,7 @@
     <string name="hello_gallery_fragment">Hello gallery fragment</string>
     <string name="hello_camera_fragment">Hello camera fragment</string>
     <string name="hello_setting_fragment">Hello setting fragment</string>
+
+    <drawable name="white_button_normal">#00000000</drawable>
+    <drawable name="white_button_pressed">#6666CCFF</drawable>
 </resources>

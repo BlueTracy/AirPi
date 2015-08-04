@@ -11,7 +11,7 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.lidroid.xutils.BitmapUtils;
-import com.pi.airpi.R;
+import com.pi.airpi1.R;
 import com.pi.airpi.gallery.GalleryManager;
 import com.pi.airpi.gallery.PanoInfo;
 
